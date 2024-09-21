@@ -42,4 +42,6 @@ group :development, :test do
   gem 'rspec-rails' # rubocop:disable Style/StringLiterals
 end
 
-
+group :test do
+  gem 'database_cleaner-active_record'
+end

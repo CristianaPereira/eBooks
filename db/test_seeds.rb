@@ -1,0 +1,1 @@
+UserType.create(name: 'Admin')
