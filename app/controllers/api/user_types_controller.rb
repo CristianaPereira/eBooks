@@ -1,4 +1,4 @@
-class UserTypesController < ApplicationController
+class Api::UserTypesController < ApplicationController
   before_action :set_user_type, only: %i[ show update destroy ]
 
   # GET /user_types
