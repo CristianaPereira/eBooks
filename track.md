@@ -27,3 +27,9 @@ https://medium.com/geekculture/rails-magic-has-secure-password-a9bf0167642d
 
 # associations 
 belongs_to holds the foreign key.
+
+# use namesapaces 
+
+1. add gem "rack-cors"
+
+2. setup cors 
