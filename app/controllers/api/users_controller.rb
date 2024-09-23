@@ -18,10 +18,10 @@ class Api::UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      # TODO: remove password_digest from the response
-      render json: @user, status: :created
+      # TODO: handle password_confirmation
+      render json: @user.as_json(except: [ :password_digest ]), status: :created
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: { form_errors: @user.errors }, status: :unprocessable_entity
     end
   end
 
@@ -47,6 +47,7 @@ class Api::UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:name, :username, :email, :password_digest, :user_type_id)
+      puts request
+      params.require(:user).permit(:name, :username, :email, :password, :user_type_id)
     end
 end
