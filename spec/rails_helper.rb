@@ -65,6 +65,16 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
-  # 
-  #
+
+ # Use truncation strategy for DatabaseCleaner before the test suite starts
+  config.before(:suite) do
+    # Load the seed data
+    Rails.application.load_seed  # This will load the db/seeds.rb file
+  end
+
+  # Clean up the database after the entire suite is finished
+  config.after(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
+  end
+  
 end

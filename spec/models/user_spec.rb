@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   let(:new_user) { User.new(name: "Another User", username: "anotherUser", email: "anotherUser@gmail.com", password: "veryStrongPassword") }
 
-  it "should raise ActiveRecord::RecordInvalid when no name is provided" do
-    expect { User.create!() }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: User type must exist, Password can't be blank")
+  it "should raise ActiveRecord::RecordInvalid when no password is provided" do
+    expect { User.create!() }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Password can't be blank")
   end
 
   it "should raise RecordNotUnique when username is not unique" do
