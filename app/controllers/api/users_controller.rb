@@ -16,14 +16,13 @@ class Api::UsersController < ApplicationController
   def create
     @user = User.create!(user_params)
     # TODO: handle password_confirmation
-    render json: @user.as_json(except: [ :password_digest ]), status: :created
+    render json: @user, status: :created
   end
 
   # PATCH/PUT /users/1
   def update
     @user.update!(user_params)
-    # TODO: DRY on to_json
-    render json: @user.as_json(except: [ :password_digest ]), status: :ok
+    render json: @user, status: :ok
   end
 
   # DELETE /users/1

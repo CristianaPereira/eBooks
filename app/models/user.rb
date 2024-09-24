@@ -17,4 +17,9 @@ class User < ApplicationRecord
             uniqueness: { case_sensitive: false },
             length: { maximum: 105 },
             format: { with: EMAIL_REGEX }
+
+
+  def as_json(options = {})
+    super(options.merge(except: [ :password_digest ]))
+  end
 end
