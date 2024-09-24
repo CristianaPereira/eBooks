@@ -40,6 +40,8 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 
   gem 'rspec-rails' # rubocop:disable Style/StringLiterals
+
+  gem 'faker', '~> 3.4', '>= 3.4.2'
 end
 
 group :test do
