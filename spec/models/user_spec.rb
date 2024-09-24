@@ -9,5 +9,9 @@ RSpec.describe User, type: :model do
 
   it "should raise RecordNotUnique when username is not unique" do
     new_user.username = "superAdmin"
-    expect { new_user.save! }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Username has already been taken") end
+  expect { new_user.save! }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Username has already been taken") end
+
+  it "should raise RecordNotFound when user does not exist" do
+    expect { User.find(68) }.to raise_error(ActiveRecord::RecordNotFound, "Couldn't find User with 'id'=68")
+  end
 end

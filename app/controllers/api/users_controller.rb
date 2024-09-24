@@ -3,40 +3,33 @@ class Api::UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = User.all
-
-    render json: @users
+    render json: User.all, status: :ok
   end
 
   # GET /users/1
   def show
-    render json: @user
+    # TODO: exclude password
+    render json: @user, status: :ok
   end
 
   # POST /users
   def create
-    @user = User.new(user_params)
-
-    if @user.save
-      # TODO: handle password_confirmation
-      render json: @user.as_json(except: [ :password_digest ]), status: :created
-    else
-      render json: { form_errors: @user.errors }, status: :unprocessable_entity
-    end
+    @user = User.create!(user_params)
+    # TODO: handle password_confirmation
+    render json: @user.as_json(except: [ :password_digest ]), status: :created
   end
 
   # PATCH/PUT /users/1
   def update
-    if @user.update(user_params)
-      render json: @user
-    else
-      render json: @user.errors, status: :unprocessable_entity
-    end
+    @user.update!(user_params)
+    # TODO: DRY on to_json
+    render json: @user.as_json(except: [ :password_digest ]), status: :ok
   end
 
   # DELETE /users/1
   def destroy
     @user.destroy!
+    render json: {},  status: :ok
   end
 
   private
