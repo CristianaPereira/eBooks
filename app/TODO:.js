@@ -19,3 +19,6 @@ end
 object @comment
 
 attributes :id, :author, :body
+
+
+# Concerns folder??  what's for
