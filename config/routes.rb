@@ -4,7 +4,9 @@ Rails.application.routes.draw do
     resources :users
   end
 
-  delete :logout, to: "sessions#logout"
-  get :logged_in, to: "sessions#logged_in"
-  post :login, to: "sessions#create"
+  scope "/session" do
+    get :logged_in, to: "sessions#logged_in"
+    delete :logout, to: "sessions#logout"
+    post :login, to: "sessions#login"
+  end
 end

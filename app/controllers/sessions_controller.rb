@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   include CurrentUserConcern
 
-  def create
+  def login
     #  TODO: if already logged in? ??
     user = User.find_by(email: params["email"]).try(:authenticate, params["password"])
     if user
