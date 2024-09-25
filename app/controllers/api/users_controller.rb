@@ -8,7 +8,6 @@ class Api::UsersController < ApplicationController
 
   # GET /users/1
   def show
-    # TODO: exclude password
     render json: @user, status: :ok
   end
 
@@ -39,7 +38,6 @@ class Api::UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      puts request
       params.require(:user).permit(:name, :username, :email, :password, :user_type_id)
     end
 end

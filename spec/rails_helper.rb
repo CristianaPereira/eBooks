@@ -66,7 +66,7 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
- # Use truncation strategy for DatabaseCleaner before the test suite starts
+  # Use truncation strategy for DatabaseCleaner before the test suite starts
   config.before(:suite) do
     # Load the seed data
     Rails.application.load_seed  # This will load the db/seeds.rb file
@@ -76,5 +76,4 @@ RSpec.configure do |config|
   config.after(:suite) do
     DatabaseCleaner.clean_with(:truncation)
   end
-  
 end

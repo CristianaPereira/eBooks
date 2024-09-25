@@ -20,6 +20,7 @@ class User < ApplicationRecord
 
 
   def as_json(options = {})
+    # eg: options = {:status=>200}
     super(options.merge(except: [ :password_digest ]))
   end
 end

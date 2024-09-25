@@ -33,3 +33,23 @@ belongs_to holds the foreign key.
 1. add gem "rack-cors"
 
 2. setup cors 
+
+
+# as_json vs to_json
+
+- to_json is a wrapper that includes our as_json option.
+
+- as_json
+  - method is used to customize the JSON representation of an object. It returns a hash that represents the object in a JSON-compatible format
+  - Customization: can be override to exculde certain attributes or add custom ones 
+  - Return Type: Returns a hash, not a JSON string.
+
+- to_json
+  - is a wrapper around as_json that calls as_json internally and then converts the resulting hash into a JSON strin
+  - Customization: Customizations made in as_json will be reflected in to_json since to_json relies on as_json.
+  - Return Type: Returns a JSON string.
+
+Summary: 
+- Use as_json when you need to customize the JSON representation of an object or when you need a JSON-compatible hash.
+- Use to_json when you need the final JSON string representation of an object, often for rendering JSON responses in controllers.
+
