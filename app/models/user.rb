@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   has_secure_password
 
+  before_save { self.email = email.downcase }
+
   validates_presence_of :email, :password, :username, :name
 
   # TODO: validates_uniqueness_of
