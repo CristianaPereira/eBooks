@@ -20,6 +20,13 @@ class User < ApplicationRecord
             length: { maximum: 105 },
             format: { with: EMAIL_REGEX }
 
+  scope :by_name, ->(username) { where("username LIKE ?", "%#{username}%") if username.present? }
+  scope :by_username, ->(name) { where("name LIKE ?", "%#{name}%") if name.present? }
+  # scope :by_author, ->(name) { joins(:author).where("author.name LIKE ?", "%#{name}%") if name.present? }
+
+  def self.filter(name, username)
+    by_name(name).by_username(username)
+  end
 
   def as_json(options = {})
     # eg: options = {:status=>200}
