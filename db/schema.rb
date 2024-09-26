@@ -10,7 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_26_060540) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_26_111205) do
+  create_table "companies", force: :cascade do |t|
+    t.string "name"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_companies_on_user_id"
+  end
+
+  create_table "ebooks", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "status", default: "draft", null: false
+    t.integer "company_id", null: false
+    t.decimal "price", precision: 4, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_ebooks_on_company_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.string "session_id", null: false
     t.text "data"
@@ -30,4 +48,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_26_060540) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
+
+  add_foreign_key "companies", "users"
+  add_foreign_key "ebooks", "companies"
 end
