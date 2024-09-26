@@ -28,7 +28,7 @@ module EbooksApi
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
-    config.x.cors_allowed_origins = "http://localhost:5173"
+    config.x.cors_allowed_origins = "http://localhost"
 
     config.session_store :active_record_store, key: "ebooks_session_id", expire_after: 1.day
       config.middleware.use ActionDispatch::Cookies
