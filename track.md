@@ -53,3 +53,12 @@ Summary:
 - Use as_json when you need to customize the JSON representation of an object or when you need a JSON-compatible hash.
 - Use to_json when you need the final JSON string representation of an object, often for rendering JSON responses in controllers.
 
+
+# Sessions 
+- https://www.writesoftwarewell.com/rails-sessions/
+- https://github.com/rails/activerecord-session_store 
+- https://www.justinweiss.com/articles/how-rails-sessions-work/?ref=writesoftwarewell.com
+
+- You can access sessions in only two places: controllers and views 
+
+- if already logged in? https://stackoverflow.com/a/18263884/4801486

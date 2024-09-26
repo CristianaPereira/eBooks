@@ -6,11 +6,6 @@ module CurrentUserConcern
   end
 
   def set_current_user
-    puts "SET CURRENT USER"
-    puts "LOGGED IN"
-     if request.cookies["ebooks_session_id"]
-      # TODO: handle cookie and sessions table
-      @current_user = User.first
-     end
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 end

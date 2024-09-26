@@ -2,7 +2,6 @@ class SessionsController < ApplicationController
   include CurrentUserConcern
 
   def login
-    #  TODO: if already logged in? ??
     user = User.find_by(email: params["email"]).try(:authenticate, params["password"])
     if user
       session[:user_id] = user.id
@@ -22,7 +21,6 @@ class SessionsController < ApplicationController
   end
 
   def logout
-    puts "LOGOUT"
     reset_session
     render json: { status: 200, logged_out: true }
   end
