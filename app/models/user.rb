@@ -21,13 +21,12 @@ class User < ApplicationRecord
             length: { maximum: 105 },
             format: { with: EMAIL_REGEX }
 
-  scope :by_name, ->(name) { where("name LIKE ?", "%#{name}%") if name.present? }
 
   # scope :by_author, ->(name) { joins(:author).where("author.name LIKE ?", "%#{name}%") if name.present? }
 
   # Usage: rails c > User.filter("arrett", "tom")
   def self.filter(name, username)
-    by_name(name).by_c_username(username)
+    by_name(name).by_username(username)
   end
 
   def my_method

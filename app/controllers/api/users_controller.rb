@@ -3,7 +3,7 @@ class Api::UsersController < ApplicationController
 
   # GET /users
   def index
-    render json: User.all, status: :ok
+    render json: User.concern_filter(name: "tom"), status: :ok
   end
 
   # GET /users/1
