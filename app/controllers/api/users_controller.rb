@@ -3,8 +3,20 @@ class Api::UsersController < ApplicationController
 
   # GET /users
   def index
-    render json: User.concern_filter(name: "tom"), status: :ok
+    render json: User.filter(filter_params), status: :ok
   end
+
+  def filter_params
+    params.permit(:name, :username)
+  end
+
+
+  # def filter_params
+  #   {
+  #     name: params["name"],
+  #     username: params["username"]
+  #   }
+  # end
 
   # GET /users/1
   def show

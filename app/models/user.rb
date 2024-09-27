@@ -24,11 +24,6 @@ class User < ApplicationRecord
 
   # scope :by_author, ->(name) { joins(:author).where("author.name LIKE ?", "%#{name}%") if name.present? }
 
-  # Usage: rails c > User.filter("arrett", "tom")
-  def self.filter(name, username)
-    by_name(name).by_username(username)
-  end
-
   def my_method
     puts "Hi from my_method"
   end
