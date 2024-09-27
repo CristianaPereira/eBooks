@@ -1,4 +1,5 @@
-module FilterConcern
+# file name must be equal to module name
+module Filterable
   extend ActiveSupport::Concern
 
   class_methods do

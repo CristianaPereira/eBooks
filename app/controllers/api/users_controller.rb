@@ -6,10 +6,6 @@ class Api::UsersController < ApplicationController
     render json: User.filter(filter_params), status: :ok
   end
 
-  def filter_params
-    params.permit(:name, :username)
-  end
-
   # GET /users/1
   def show
     render json: @user, status: :ok
@@ -43,6 +39,11 @@ class Api::UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
+      # params.require(user: [:name, :username ]).permit(:name, :username, :email, :password, :user_type_id)
       params.require(:user).permit(:name, :username, :email, :password, :user_type_id)
+    end
+
+    def filter_params
+      params.permit(:name, :username)
     end
 end

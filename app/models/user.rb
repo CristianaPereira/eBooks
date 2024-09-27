@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-  include UserConcern
+  include Filterable
+
   has_many :companies
 
   has_secure_password
@@ -22,28 +23,13 @@ class User < ApplicationRecord
             format: { with: EMAIL_REGEX }
 
 
-  # scope :by_author, ->(name) { joins(:author).where("author.name LIKE ?", "%#{name}%") if name.present? }
+  scope :by_username, ->(username) { where("username LIKE ?", "%#{username}%") if username.present? }
+  scope :by_name, ->(name) { where("name LIKE ?", "%#{name}%") if name.present? }
 
-  def my_method
-    puts "Hi from my_method"
-  end
+  # scope :by_author, ->(name) { joins(:author).where("author.name LIKE ?", "%#{name}%") if name.present? }
 
   def as_json(options = {})
     # eg: options = {:status=>200}
     super(options.merge(except: [ :password_digest ]))
   end
 end
-
-
-# > User.filter('arrett', 'tom') [OK]
-
-# > User.concern_c_hi [OK]
-# > User.first.concern_i_hi [ERROR (undefined method)]
-
-# > User.concern_private_hi => Error (private method)
-
-# > User.first.concern_i_hi [OK]
-# > User.concern_i_hi => Error (undefined method)
-
-# > User.first.my_method [OK]
-# > User.my_method [ERROR (undefined method)]
