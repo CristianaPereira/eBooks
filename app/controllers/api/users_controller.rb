@@ -10,14 +10,6 @@ class Api::UsersController < ApplicationController
     params.permit(:name, :username)
   end
 
-
-  # def filter_params
-  #   {
-  #     name: params["name"],
-  #     username: params["username"]
-  #   }
-  # end
-
   # GET /users/1
   def show
     render json: @user, status: :ok

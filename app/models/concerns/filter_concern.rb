@@ -1,12 +1,6 @@
 module FilterConcern
   extend ActiveSupport::Concern
 
-  included do
-    # do i need this?
-    # class_attribute :query_scope
-    class_attribute :filter_scopes_module
-  end
-
   class_methods do
     def filter(filters)
       res = all
