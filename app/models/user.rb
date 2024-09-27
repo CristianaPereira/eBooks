@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  include UserConcern
   has_many :companies
 
   has_secure_password
@@ -20,12 +21,17 @@ class User < ApplicationRecord
             length: { maximum: 105 },
             format: { with: EMAIL_REGEX }
 
-  scope :by_name, ->(username) { where("username LIKE ?", "%#{username}%") if username.present? }
-  scope :by_username, ->(name) { where("name LIKE ?", "%#{name}%") if name.present? }
+  scope :by_name, ->(name) { where("name LIKE ?", "%#{name}%") if name.present? }
+
   # scope :by_author, ->(name) { joins(:author).where("author.name LIKE ?", "%#{name}%") if name.present? }
 
+  # Usage: rails c > User.filter("arrett", "tom")
   def self.filter(name, username)
-    by_name(name).by_username(username)
+    by_name(name).by_c_username(username)
+  end
+
+  def my_method
+    puts "Hi from my_method"
   end
 
   def as_json(options = {})
@@ -33,3 +39,17 @@ class User < ApplicationRecord
     super(options.merge(except: [ :password_digest ]))
   end
 end
+
+
+# > User.filter('arrett', 'tom') [OK]
+
+# > User.concern_c_hi [OK]
+# > User.first.concern_i_hi [ERROR (undefined method)]
+
+# > User.concern_private_hi => Error (private method)
+
+# > User.first.concern_i_hi [OK]
+# > User.concern_i_hi => Error (undefined method)
+
+# > User.first.my_method [OK]
+# > User.my_method [ERROR (undefined method)]
