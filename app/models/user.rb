@@ -3,6 +3,10 @@ class User < ApplicationRecord
 
   has_many :companies
 
+  # allows to access ebooks through companies
+  # User.find(16).ebooks
+  has_many :ebooks, through: :companies
+
   has_secure_password
 
   before_save { self.email = email.downcase }
