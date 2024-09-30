@@ -1,9 +1,9 @@
-class EbooksController < ApplicationController
+class Api::EbooksController < ApplicationController
   before_action :set_ebook, only: %i[ show update destroy ]
 
   # GET /ebooks
   def index
-    render json: Ebook.all, status: :ok
+    render json: Ebook.filter(filter_params), status: :ok
   end
 
   # GET /ebooks/1
@@ -38,5 +38,9 @@ class EbooksController < ApplicationController
     # Only allow a list of trusted parameters through.
     def ebook_params
       params.require(:ebook).permit(:title, :status, :seller_id)
+    end
+
+    def filter_params
+      params.permit(:name, :ownerId)
     end
 end

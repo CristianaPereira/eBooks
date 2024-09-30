@@ -7,7 +7,7 @@ module Filterable
       res = all
       filters.each do |key, value|
         scope_filter = "by_#{key}"
-        res = res.send(scope_filter, filters[key]) if respond_to?(scope_filter)
+        res = res.send(scope_filter, filters[key]) if value.present? && respond_to?(scope_filter)
       end
       res
     end

@@ -26,8 +26,6 @@ class User < ApplicationRecord
   scope :by_username, ->(username) { where("username LIKE ?", "%#{username}%") if username.present? }
   scope :by_name, ->(name) { where("name LIKE ?", "%#{name}%") if name.present? }
 
-  # scope :by_author, ->(name) { joins(:author).where("author.name LIKE ?", "%#{name}%") if name.present? }
-
   def as_json(options = {})
     # eg: options = {:status=>200}
     super(options.merge(except: [ :password_digest ]))
