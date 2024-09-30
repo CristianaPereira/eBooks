@@ -11,7 +11,9 @@ class User < ApplicationRecord
 
   before_save { self.email = email.downcase }
 
-  validates_presence_of :email, :password, :username, :name
+  enum :status, { active: "active", inactive: "inactive" }, validate: { allow_nil: false }
+
+  validates_presence_of :email, :password, :username, :name, :status
 
   # TODO: validates_uniqueness_of
 
