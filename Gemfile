@@ -44,8 +44,12 @@ group :development, :test do
   gem "rspec-rails" # rubocop:disable Style/StringLiterals
 
   gem "faker", "~> 3.4", ">= 3.4.2"
+
+  gem "factory_bot_rails"
 end
 
 group :test do
   gem "database_cleaner-active_record"
 end
+
+gem "factory_bot", "~> 6.5"
