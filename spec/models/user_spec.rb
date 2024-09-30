@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  it "should raise ActiveRecord::RecordInvalid when no password is provided" do
+  it "should raise ActiveRecord::RecordInvalid when no data is provided" do
     expect {
       User.create!()
     }.to raise_error(ActiveRecord::RecordInvalid) do |error|

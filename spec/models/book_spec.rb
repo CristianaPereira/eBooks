@@ -1,39 +1,33 @@
 require 'rails_helper'
 
 RSpec.describe Ebook, type: :model do
-  let(:book) { Ebook.first }
+  let(:ebook) { FactoryBot.create(:ebook) }
 
   context 'when testing books statuses update' do
     possible_statuses = Ebook.statuses.keys
     possible_statuses.each do |value|
       it "updates status to #{value}" do
-        book.update(status: value)
-        expect(book.status).to eq(value)
+        ebook.update(status: value)
+        expect(ebook.status).to eq(value)
       end
     end
   end
 
   it "should create a new book associated to a company of an active user" do
-    # TODO: use factory bot to create a company with an inactive user
-    # find company of an active user
-    company_of_active_user = Company.joins(:user).where("users.status": 'active').first
+    company_of_active_user = FactoryBot.create(:company)
+    new_book = FactoryBot.create(:ebook, { company_id: company_of_active_user.id })
 
-    new_book = Ebook.create!(title: Faker::Book.title, price: Faker::Number.decimal(l_digits: 2), status: Ebook.statuses.values.sample, company_id: company_of_active_user.id)
-
+    expect(company_of_active_user.user.status).to eq('active')
     expect(new_book.company_id).to eq(company_of_active_user.id)
   end
 
   it "should raise ActiveRecord::RecordInvalid when trying to update book status to a forbidden status" do
-    expect { book.update!(status: 'someStatus') }.to raise_error(ActiveRecord::RecordInvalid, /Validation failed: Status is not included in the list/)
+    expect { ebook.update!(status: 'someStatus') }.to raise_error(ActiveRecord::RecordInvalid, /Validation failed: Status is not included in the list/)
   end
 
   it "should raise an error when trying to create a book with a company of an inactive user" do
-    # TODO: use factory bot to create a company with an inactive user
-    company_of_user_to_disable = Company.joins(:user).where("users.status": 'active').first
-    company_of_user_to_disable.user.destroy
-
-    new_book = Ebook.new(title: Faker::Book.title, price: Faker::Number.decimal(l_digits: 2), status: Ebook.statuses.values.sample, company_id: company_of_user_to_disable.id)
-
-    expect { new_book.save! }.to raise_error(ActiveRecord::RecordInvalid, /Validation failed: Company must exist/)
+    company_of_inactive_user = FactoryBot.create(:company, user: FactoryBot.create(:user, status: 'inactive'))
+    expect(company_of_inactive_user.user.status).to eq('inactive')
+    expect { FactoryBot.create(:ebook, company_id: company_of_inactive_user.id) }.to raise_error(ActiveRecord::RecordInvalid, /Validation failed: Company must exist/)
   end
 end
