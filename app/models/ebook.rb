@@ -4,7 +4,9 @@ class Ebook < ApplicationRecord
   belongs_to :company
 
   has_one :user, through: :company
-  enum :status, { draft: "draft", pending: "pending", live: "live" }
+
+  validates_presence_of :title, :price, :status
+  enum :status, { draft: "draft", pending: "pending", live: "live" }, validate: { allow_nil: false }
 
   scope :by_name, ->(name) { where("ebooks.name LIKE ?", "%#{name}%") if name.present? }
 

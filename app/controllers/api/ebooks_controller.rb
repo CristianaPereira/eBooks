@@ -37,7 +37,11 @@ class Api::EbooksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def ebook_params
-      params.require(:ebook).permit(:title, :status, :seller_id)
+      if params[:action] ==  "update"
+        params.require(:ebook).permit(:title, :status, :price)
+      elsif params[:action] == "create"
+        params.require(:ebook).permit(:title, :status, :company_id, :price)
+      end
     end
 
     def filter_params
