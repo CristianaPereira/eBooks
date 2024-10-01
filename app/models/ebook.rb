@@ -18,3 +18,7 @@ class Ebook < ApplicationRecord
     super(options).merge({ company: company })
   end
 end
+
+
+# TODO:
+# allow full destroy if !orders.length
