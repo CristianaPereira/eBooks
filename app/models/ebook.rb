@@ -2,8 +2,8 @@ class Ebook < ApplicationRecord
   include Filterable
 
   belongs_to :company
-
   has_one :user, through: :company
+  has_many :orders
 
   validates_presence_of :title, :price, :status
   enum :status, { draft: "draft", pending: "pending", live: "live" }, validate: { allow_nil: false }

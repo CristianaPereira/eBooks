@@ -2,6 +2,8 @@
 
 > rails g scaffold User name:string username:string email:string password_digest:string user_type:references
 
+> rails g scaffold Orders status:string user:references ebook:references total:decimal
+
 References:
 A references column is a shorthand way to add a column that will hold the ID of a related record. It also adds an index to this column by default. This is useful for creating associations between models.
 
@@ -70,3 +72,7 @@ Summary:
 
 # filters
 https://medium.com/@albertohernndezcerezo/what-will-you-learn-75bbea738fc
+
+
+# services 
+https://medium.com/@thilorusche/service-objects-for-rails-9c5973dc8bc2 

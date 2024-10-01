@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     resources :users
     resources :companies, except: [ :destroy ]
     resources :ebooks, except: [ :destroy ]
+    post :orders, to: "orders#create"
   end
 
   scope "/session" do

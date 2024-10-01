@@ -3,10 +3,8 @@ class User < ApplicationRecord
   include SoftDeletable
 
   has_many :companies
-
-  # allows to access ebooks through companies
-  # User.find(16).ebooks
-  has_many :ebooks, through: :companies
+  has_many :ebooks, through: :companies # allows to access ebooks through companies eg: User.find(16).ebooks
+  has_many :orders
 
   has_secure_password
 

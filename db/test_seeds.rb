@@ -14,3 +14,8 @@ User.create(name: 'SuperAdmin', username: 'superAdmin', email: 'super.admin@gmai
         end
     end
 end
+# creates random orders
+# TODO: ensure that no user buys the same ebook twice ??
+20.times do
+  FactoryBot.create(:order, { user: User.all.sample, ebook: Ebook.all.sample })
+end
