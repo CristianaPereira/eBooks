@@ -45,6 +45,6 @@ class Api::EbooksController < ApplicationController
     end
 
     def filter_params
-      params.permit(:name, :ownerId)
+      params.permit(:name, :owner_id)
     end
 end

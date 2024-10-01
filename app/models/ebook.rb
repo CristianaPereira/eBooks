@@ -10,7 +10,7 @@ class Ebook < ApplicationRecord
 
   scope :by_name, ->(name) { where("ebooks.name LIKE ?", "%#{name}%") if name.present? }
 
-  scope :by_ownerId, ->(ownerId) { joins(:company).where("companies.user_id = ?", ownerId) if ownerId.present? }
+  scope :by_owner_id, ->(owner_id) { joins(:company).where("companies.user_id = ?", owner_id) if owner_id.present? }
 
   def as_json(options = {})
     # eg: options = {:status=>200}
