@@ -15,6 +15,7 @@ class Api::UsersController < ApplicationController
   def create
     @user = User.create!(user_params)
     # TODO: handle password_confirmation
+    session[:user_id] = @user.id
     render json: @user, status: :created
   end
 
