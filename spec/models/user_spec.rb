@@ -19,7 +19,7 @@ RSpec.describe User, type: :model do
   end
 
   it "should raise RecordNotFound when user does not exist" do
-    expect { User.find(68) }.to raise_error(ActiveRecord::RecordNotFound, /Couldn't find User/)
+    expect { User.find(User.last.id + 1) }.to raise_error(ActiveRecord::RecordNotFound, /Couldn't find User/)
   end
 
   it "should disable(fake destroy) an active user" do
