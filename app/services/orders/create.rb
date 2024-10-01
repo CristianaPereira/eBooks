@@ -1,14 +1,3 @@
-class ApplicationService
-  class << self
-    def call(*args, **kwargs, &block)
-      new.call(*args, **kwargs, &block)
-    end
-  end
-end
-
-class OrderService < StandardError
-end
-
 class Orders::Create < ApplicationService
   def call(user_id, ebook_id)
     @order = Order.new(user_id: user_id, ebook_id: ebook_id)
@@ -17,7 +6,6 @@ class Orders::Create < ApplicationService
     process_discount!
     @order.save!
     send_email_confirmation
-
     # success @order
     @order
   end
