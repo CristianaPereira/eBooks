@@ -1,8 +1,8 @@
 class Api::OrdersController < ApplicationController
   # POST /orders
   def create
-    # get user_id from session
-    @order = Order.create!(order_params)
+    # TODO: get user_id from session
+    @order  = Orders::Create.call(order_params[:user_id], order_params[:ebook_id])
     render json: @order, status: :created
   end
 
