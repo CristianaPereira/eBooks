@@ -13,13 +13,13 @@ class Api::EbooksController < ApplicationController
 
   # POST /ebooks
   def create
-    @ebook = Ebook.create!(ebook_params)
+    @ebook = Ebook.create!(ebook_create_params)
     render json: @ebook, status: :created
   end
 
   # PATCH/PUT /ebooks/1
   def update
-    @ebook.update!(ebook_params)
+    @ebook.update!(ebook_update_params)
     render json: @ebook, status: :ok
   end
 
@@ -36,12 +36,12 @@ class Api::EbooksController < ApplicationController
     end
 
     # Only allow a list of trusted parameters through.
-    def ebook_params
-      if params[:action] ==  "update"
-        params.require(:ebook).permit(:title, :status, :price)
-      elsif params[:action] == "create"
-        params.require(:ebook).permit(:title, :status, :company_id, :price)
-      end
+    def ebook_update_params
+      params.require(:ebook).permit(:title, :status, :price)
+    end
+
+    def ebook_create_params
+      params.require(:ebook).permit(:title, :status, :company_id, :price)
     end
 
     def filter_params
