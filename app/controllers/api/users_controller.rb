@@ -43,7 +43,7 @@ class Api::UsersController < ApplicationController
       if params[:action] ==  "update"
          params.require(:user).permit(:name)
       elsif params[:action] == "create"
-        params.require(:user).permit(:name, :username, :email, :password, :user_type_id)
+        params.require(:user).permit(:name, :username, :email, :password)
       end
     end
 
