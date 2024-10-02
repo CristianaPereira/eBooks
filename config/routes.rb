@@ -3,8 +3,8 @@ Rails.application.routes.draw do
     resources :users
     resources :companies, except: [ :destroy ]
     resources :ebooks, except: [ :destroy ]
-    post :orders, to: "orders#create"
-  end
+    resources :orders, only: [ :create, :show ]
+   end
 
   scope "/session" do
     get :logged_in, to: "sessions#logged_in"

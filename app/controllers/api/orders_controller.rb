@@ -1,4 +1,11 @@
 class Api::OrdersController < ApplicationController
+  before_action :set_order, only: %i[ show ]
+
+  # GET /orders/1
+  def show
+    render json: @order, status: :ok
+  end
+
   # POST /orders
   def create
     # TODO: get user_id from session
@@ -7,6 +14,11 @@ class Api::OrdersController < ApplicationController
   end
 
   private
+
+    def set_order
+      @order = Order.find(params[:id])
+    end
+
     def order_params
       params.require(:order).permit(:status, :ebook_id, :user_id)
     end

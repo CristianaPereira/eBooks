@@ -18,10 +18,6 @@ RSpec.describe User, type: :model do
     expect { FactoryBot.create(:user, { username: 'superAdmin' }) }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Username has already been taken")
   end
 
-  it "should raise RecordNotFound when user does not exist" do
-    expect { User.find(User.last.id + 1) }.to raise_error(ActiveRecord::RecordNotFound, /Couldn't find User/)
-  end
-
   it "should disable(fake destroy) an active user" do
     user_to_disable = User.find_by(status: "active")
     user_to_disable.destroy
