@@ -16,14 +16,9 @@ class Orders::Create < ApplicationService
     raise ActiveRecord::RecordInvalid.new(@order) unless @order.valid?
   end
 
-  def process_payment!(payment_ref)
-    puts "Process payment"
-    # PaymentProcessor.call!(@booking, payment_ref)
-  end
-
   def send_email_confirmation
-    puts "Send emails"
-    # BookingMailer.confirmation(@booking).deliver_later
+    # deliver_later enqueues the email to be sent in the background
+    OrderMailer.with(order: @order).confirmation_email.deliver_later
   end
 
   def process_discount!

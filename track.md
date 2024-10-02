@@ -76,3 +76,7 @@ https://medium.com/@albertohernndezcerezo/what-will-you-learn-75bbea738fc
 
 # services 
 https://medium.com/@thilorusche/service-objects-for-rails-9c5973dc8bc2 
+
+# emails
+https://medium.com/jungletronics/how-to-send-email-in-rails-7-4fe5f8551a13
+

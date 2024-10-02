@@ -1,0 +1,7 @@
+<div>
+  <p> Thank you for buying <b><%= @order.ebook.title %></b></p>
+  <br/>
+  <p> You should know that: </p>
+  <p> This book has been purchased <%= @order.ebook.orders.finished.count %> times!</p>
+  <p> Find more books in <a href="<%= @find_books_url %>">our website</a></p>
+</div>
