@@ -10,7 +10,6 @@ class ApplicationController < ActionController::API
   end
 
   def record_invalid(invalid)
-    puts invalid.record.errors
     render json: { error: "record_invalid", record_errors: invalid.record.errors }, status: :unprocessable_entity
   end
 end
