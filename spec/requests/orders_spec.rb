@@ -45,6 +45,14 @@ RSpec.describe "/orders", type: :request do
         expect(response).to have_http_status(:created)
         expect(response.content_type).to match(a_string_including("application/json"))
       end
+
+      it "renders a JSON response with the new order" do
+        allow(Orders::Create).to receive(:call).and_raise('Some unpredictable error')
+
+        post api_orders_url params: { order: valid_attributes }, headers: valid_headers, as: :json
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.parsed_body).to eq({ "error"=>"runtime_error", "message"=>"Ups something happened" })
+      end
     end
 
     context "with invalid parameters" do
