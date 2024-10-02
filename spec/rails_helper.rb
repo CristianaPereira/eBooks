@@ -76,4 +76,5 @@ RSpec.configure do |config|
   config.after(:suite) do
     DatabaseCleaner.clean_with(:truncation)
   end
+  config.include FactoryBot::Syntax::Methods
 end

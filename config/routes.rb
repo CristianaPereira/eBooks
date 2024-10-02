@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   namespace :api do
-    resources :user_types
     resources :users
+    resources :companies, except: [ :destroy ]
+    resources :ebooks, except: [ :destroy ]
   end
 
   scope "/session" do

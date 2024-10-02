@@ -3,7 +3,7 @@ class Api::UsersController < ApplicationController
 
   # GET /users
   def index
-    render json: User.all, status: :ok
+    render json: User.filter(filter_params), status: :ok
   end
 
   # GET /users/1
@@ -39,6 +39,15 @@ class Api::UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:name, :username, :email, :password, :user_type_id)
+      # distinguish between action
+      if params[:action] ==  "update"
+         params.require(:user).permit(:name)
+      elsif params[:action] == "create"
+        params.require(:user).permit(:name, :username, :email, :password)
+      end
+    end
+
+    def filter_params
+      params.permit(:name, :username)
     end
 end
