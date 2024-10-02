@@ -9,7 +9,7 @@
 #   end
 puts Rails.env
 
-if Rails.env.test?
+if Rails.env.test? || Rails.env.development?
   load Rails.root.join('db/test_seeds.rb')
 else
   # real seeds

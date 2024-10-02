@@ -62,3 +62,11 @@ Summary:
 - You can access sessions in only two places: controllers and views 
 
 - if already logged in? https://stackoverflow.com/a/18263884/4801486
+
+> rails g scaffold company name:string user:references
+
+> rails g scaffold Ebook name:string status:integer seller:references
+
+
+# filters
+https://medium.com/@albertohernndezcerezo/what-will-you-learn-75bbea738fc

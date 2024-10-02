@@ -1,17 +1,36 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:new_user) { User.new(name: Faker::Fantasy::Tolkien.character, username: Faker::Internet.username(specifier: 5..10), email: Faker::Internet.email, password: Faker::Internet.password) }
-
-  it "should raise ActiveRecord::RecordInvalid when no password is provided" do
-    expect { User.create!() }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Password can't be blank, Name can't be blank, Password can't be blank, Username can't be blank, Username is too short (minimum is 3 characters), Email can't be blank, Email is invalid")
+  it "should raise ActiveRecord::RecordInvalid when no data is provided" do
+    expect {
+      User.create!()
+    }.to raise_error(ActiveRecord::RecordInvalid) do |error|
+      expect(error.record.errors.as_json).to eq({
+        email: [ "can't be blank", "is invalid" ],
+        name: [ "can't be blank" ],
+        password: [ "can't be blank" ],
+        username: [ "can't be blank", "is too short (minimum is 3 characters)" ]
+      })
+     end
   end
 
   it "should raise RecordNotUnique when username is not unique" do
-    new_user.username = "superAdmin"
-    expect { new_user.save! }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Username has already been taken") end
+    expect { FactoryBot.create(:user, { username: 'superAdmin' }) }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Username has already been taken")
+  end
 
   it "should raise RecordNotFound when user does not exist" do
-    expect { User.find(68) }.to raise_error(ActiveRecord::RecordNotFound, "Couldn't find User with 'id'=68")
+    expect { User.find(User.last.id + 1) }.to raise_error(ActiveRecord::RecordNotFound, /Couldn't find User/)
+  end
+
+  it "should disable(fake destroy) an active user" do
+    user_to_disable = User.find_by(status: "active")
+    user_to_disable.destroy
+    expect(user_to_disable.status).to eq("inactive")
+  end
+
+  it "should not find and inactive user" do
+    user_to_disable = User.find_by(status: "active")
+    user_to_disable.destroy
+    expect { User.find(user_to_disable.id) }.to raise_error(ActiveRecord::RecordNotFound, /Couldn't find User/)
   end
 end
