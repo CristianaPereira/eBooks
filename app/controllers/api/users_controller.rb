@@ -61,6 +61,6 @@ class Api::UsersController < ApplicationController
     end
 
     def avatar_file_key
-      "#{Rails.env}/users/"
+      "#{Rails.env}/users/#{@user[:id]}/"
     end
 end
