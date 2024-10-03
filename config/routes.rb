@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     resources :users
     resources :companies, except: [ :destroy ]
     resources :ebooks, except: [ :destroy ]
+    post "ebooks/:id/buy", to: "ebooks#buy"
     resources :orders, only: [ :create, :show ]
    end
 

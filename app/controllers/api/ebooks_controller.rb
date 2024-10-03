@@ -23,6 +23,11 @@ class Api::EbooksController < ApplicationController
     render json: @ebook, status: :ok
   end
 
+  def buy
+    @order  = Orders::Create.call(@current_user.id, params[:id])
+    render json: @order, status: :created
+  end
+
   # DELETE /ebooks/1
   def destroy
     @ebook.destroy!
