@@ -1,10 +1,14 @@
 class User < ApplicationRecord
   include Filterable
   include SoftDeletable
+  include Rails.application.routes.url_helpers
+  include Attachable
 
   has_many :companies
   has_many :ebooks, through: :companies # allows to access ebooks through companies eg: User.find(16).ebooks
   has_many :orders
+
+  has_one_attached :avatar
 
   has_secure_password
 
@@ -39,6 +43,10 @@ class User < ApplicationRecord
 
   def as_json(options = {})
     # eg: options = {:status=>200}
-    super(options.merge(except: [ :password_digest ]))
+    super(options.merge(except: [ :password_digest ])).merge(avatar_url: avatar_url)
+  end
+
+  def avatar_url
+    rails_blob_path(avatar, only_path: true) if avatar.attached?
   end
 end

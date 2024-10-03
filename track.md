@@ -80,3 +80,8 @@ https://medium.com/@thilorusche/service-objects-for-rails-9c5973dc8bc2
 # emails
 https://medium.com/jungletronics/how-to-send-email-in-rails-7-4fe5f8551a13
 
+# serializer
+https://medium.com/@ryan.w.horowitz/a-comprehensive-guide-on-how-to-use-rails-serializer-f69f01017cd5 
+
+# attachments 
+https://www.davidangulo.xyz/posts/attach-base64-file-on-activestorage-rails/ 

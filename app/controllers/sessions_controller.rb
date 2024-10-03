@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
       render json: { logged_in: true, user: user }, status: :ok
     else
       # TODO: deal with error
-      render json: {}, status: 401
+      render json: { logged_in: false }, status: 401
     end
   end
 
