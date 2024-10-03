@@ -1,5 +1,4 @@
 class SessionsController < ApplicationController
-  include CurrentUserConcern
   skip_before_action :ensure_is_logged_in, only: %i[login logged_in]
 
   def login

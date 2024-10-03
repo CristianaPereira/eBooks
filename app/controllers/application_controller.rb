@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::API
+  include CurrentUserConcern
+
   # TODO: investigate
   # skip_before_action :verify_authenticity_token
   before_action :ensure_is_logged_in
