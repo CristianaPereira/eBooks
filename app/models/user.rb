@@ -1,7 +1,6 @@
 class User < ApplicationRecord
   include Filterable
   include SoftDeletable
-  include Rails.application.routes.url_helpers
   include Attachable
 
   has_many :companies
@@ -39,14 +38,5 @@ class User < ApplicationRecord
     update_column :status, :inactive
     # TODO: update corresponding ebooks to ghost user ?
     # TODO: update corresponding orders to ghost user ?
-  end
-
-  def as_json(options = {})
-    # eg: options = {:status=>200}
-    super(options.merge(except: [ :password_digest ])).merge(avatar_url: avatar_url)
-  end
-
-  def avatar_url
-    rails_blob_path(avatar, only_path: true) if avatar.attached?
   end
 end
