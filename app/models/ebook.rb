@@ -6,6 +6,7 @@ class Ebook < ApplicationRecord
   has_one :user, through: :company
   has_many :orders
   has_one_attached :preview
+  has_one_attached :full_ebook
 
 
   validates_presence_of :title, :price, :status
@@ -18,7 +19,7 @@ class Ebook < ApplicationRecord
   def as_json(options = {})
     # eg: options = {:status=>200}
     # TODO: explore serializers
-    super(options).merge({ company: company })
+    super(options).merge({ company: company }).merge(hasPreview: preview.attached?)
   end
 end
 
