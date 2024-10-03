@@ -20,8 +20,16 @@ class Api::EbooksController < ApplicationController
   # PATCH/PUT /ebooks/1
   def update
     @ebook.update!(ebook_update_params)
+    set_preview
     render json: @ebook, status: :ok
   end
+
+  def set_preview
+    return unless params[:ebook][:preview].present?
+    file = params[:ebook][:preview]
+    @ebook.attach_file!(file, :preview, preview_file_key)
+  end
+
 
   def buy
     @order  = Orders::Create.call(@current_user.id, params[:id])
@@ -51,5 +59,9 @@ class Api::EbooksController < ApplicationController
 
     def filter_params
       params.permit(:name, :owner_id)
+    end
+
+    def preview_file_key
+      "#{Rails.env}/ebooks/#{@ebook[:id]}/"
     end
 end

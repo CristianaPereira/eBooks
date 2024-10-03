@@ -83,5 +83,10 @@ https://medium.com/jungletronics/how-to-send-email-in-rails-7-4fe5f8551a13
 # serializer
 https://medium.com/@ryan.w.horowitz/a-comprehensive-guide-on-how-to-use-rails-serializer-f69f01017cd5 
 
+
 # attachments 
 https://www.davidangulo.xyz/posts/attach-base64-file-on-activestorage-rails/ 
+https://kim-jenny5.medium.com/how-to-active-storage-with-a-rails-api-and-javascript-frontend-with-amazon-s3-9d1e0045d3bc
+
+# ActiveSupport - current attributes
+https://api.rubyonrails.org/classes/ActiveSupport/CurrentAttributes.html
