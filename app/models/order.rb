@@ -1,17 +1,15 @@
 class Order < ApplicationRecord
   belongs_to :user
   belongs_to :ebook
-  before_save :ensure_user_is_active
 
   enum :status, { pending: "pending", finished: "finished" }, validate: { allow_nil: false }
+  validate :ensure_user_is_active
+
 
   private
 
   def ensure_user_is_active
-    return true if user.active?
-
-    errors.add(:user, "must exist")
-    raise ActiveRecord::RecordInvalid.new(self)
+    errors.add(:user, "must exist") unless user.present? && user.active?
   end
 end
 
