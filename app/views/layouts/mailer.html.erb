@@ -8,6 +8,9 @@
   </head>
 
   <body>
+    <p>Hello <%= @user.name %>,</p>
     <%= yield %>
+    <hr>
+    <p>Click <a href="<%=ENV["DOMAIN"]%>/subscriptions">here</a> to receive fewer messages, unsubscribe, or update your e-mail subscription preferences.</p>
   </body>
 </html>

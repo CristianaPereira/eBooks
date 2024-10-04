@@ -1,4 +1,5 @@
 class Api::UsersController < ApplicationController
+  skip_before_action :ensure_is_logged_in, only: %i[create]
   before_action :set_user, only: %i[ show update destroy ]
 
   # GET /users

@@ -1,4 +1,10 @@
 FactoryBot.define do
+  factory :order do
+    association :user, factory: :user
+    association :ebook, factory: :ebook
+    total { Faker::Number.decimal(l_digits: 2) }
+  end
+
   factory :user do
     name { Faker::Fantasy::Tolkien.character }
     email { Faker::Internet.email }

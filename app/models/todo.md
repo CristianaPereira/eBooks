@@ -1,0 +1,2 @@
+- protect routes with authentications
+- do not allow to buy books from inactive users 
