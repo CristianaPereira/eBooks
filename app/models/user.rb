@@ -1,10 +1,13 @@
 class User < ApplicationRecord
   include Filterable
   include SoftDeletable
+  include Attachable
 
   has_many :companies
   has_many :ebooks, through: :companies # allows to access ebooks through companies eg: User.find(16).ebooks
   has_many :orders
+
+  has_one_attached :avatar
 
   has_secure_password
 
@@ -35,10 +38,5 @@ class User < ApplicationRecord
     update_column :status, :inactive
     # TODO: update corresponding ebooks to ghost user ?
     # TODO: update corresponding orders to ghost user ?
-  end
-
-  def as_json(options = {})
-    # eg: options = {:status=>200}
-    super(options.merge(except: [ :password_digest ]))
   end
 end

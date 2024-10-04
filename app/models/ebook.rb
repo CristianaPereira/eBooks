@@ -1,9 +1,13 @@
 class Ebook < ApplicationRecord
   include Filterable
+  include Attachable
 
   belongs_to :company
   has_one :user, through: :company
   has_many :orders
+  has_one_attached :preview
+  has_one_attached :full_ebook
+
 
   validates_presence_of :title, :price, :status
   enum :status, { draft: "draft", pending: "pending", live: "live" }, validate: { allow_nil: false }
@@ -15,7 +19,7 @@ class Ebook < ApplicationRecord
   def as_json(options = {})
     # eg: options = {:status=>200}
     # TODO: explore serializers
-    super(options).merge({ company: company })
+    super(options).merge({ company: company }).merge(hasPreview: preview.attached?)
   end
 end
 

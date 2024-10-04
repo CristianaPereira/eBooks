@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     resources :users
     resources :companies, except: [ :destroy ]
     resources :ebooks, except: [ :destroy ]
+    #  add route for books/id/preview and books/id/full_ebook
+    get "ebooks/:id/preview", to: "ebooks#preview"
     post "ebooks/:id/buy", to: "ebooks#buy"
     resources :orders, only: [ :create, :show ]
    end

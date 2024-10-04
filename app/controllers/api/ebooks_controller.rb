@@ -1,5 +1,5 @@
 class Api::EbooksController < ApplicationController
-  before_action :set_ebook, only: %i[ show update destroy ]
+  before_action :set_ebook, only: %i[ show update destroy preview ]
 
   # GET /ebooks
   def index
@@ -17,11 +17,28 @@ class Api::EbooksController < ApplicationController
     render json: @ebook, status: :created
   end
 
+  def preview
+    if @ebook.preview.attached?
+      @ebook.increment!(:total_previews, 1) # Increment the 'views' field by 1
+      return render json: { url: rails_blob_path(@ebook.preview, only_path: true), total_previews: @ebook.total_previews }, status: :ok
+    end
+    render json: {}, status: :record_not_found
+  end
+
   # PATCH/PUT /ebooks/1
   def update
     @ebook.update!(ebook_update_params)
+    if params[:ebook][:preview].present?
+      @ebook.attach_file!(params[:ebook][:preview], :preview, attach_file_key)
+    end
+    if params[:ebook][:full_ebook].present?
+      @ebook.attach_file!(params[:ebook][:full_ebook], :full_ebook, attach_file_key)
+    end
     render json: @ebook, status: :ok
   end
+
+
+
 
   def buy
     @order  = Orders::Create.call(@current_user.id, params[:id])
@@ -51,5 +68,9 @@ class Api::EbooksController < ApplicationController
 
     def filter_params
       params.permit(:name, :owner_id)
+    end
+
+    def attach_file_key
+      "#{Rails.env}/ebooks/#{@ebook[:id]}/"
     end
 end
